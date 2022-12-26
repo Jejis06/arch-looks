@@ -1,0 +1,25 @@
+# Proxyman profile : rpi
+
+# Example: 127.0.0.1
+http_host=127.0.0.1
+
+# Example: 8080
+http_port=3129
+
+# Use same values for https and ftp
+use_same=y
+
+# use auth is 'y' or 'n', and provide username and password
+use_auth=n
+username=
+password=
+
+# If use same is 'y', no need of these
+https_host=127.0.0.1
+https_port=3129
+ftp_host=127.0.0.1
+ftp_port=3129
+
+# URLs that should be excluded from proxying
+no_proxy=localhost,127.0.0.1,192.168.1.1,::1,*.local
+
