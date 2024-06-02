@@ -1,10 +1,15 @@
 [global_config]
   focus = system
   enabled_plugins = LaunchpadBugURLHandler, LaunchpadCodeURLHandler, APTURLHandler, TerminatorThemes
+  suppress_multiple_term_dialog = True
   always_split_with_profile = True
 [keybindings]
+  go_up = <Alt>k
+  go_down = <Alt>j
+  split_auto = <Primary>bracketright
   toggle_scrollbar = <Primary><Shift><Alt>s
-  group_all = <Super>Delete
+  group_all = <Shift><Super>q
+  help = ""
 [profiles]
   [[default]]
     background_color = "#282828"

@@ -10,6 +10,7 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $alt Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -48,6 +49,9 @@ bindsym $mod+Shift+q kill
 #bindsym $mod+d exec --no-startup-id dmenu_run
 bindsym $mod+d exec rofi -show run
 bindsym $mod+g exec /home/ignas/.config/rofi/scripts/gamerunner.sh
+#turn of pc
+bindsym $alt+F4 exec "rofi -show power-menu -modi 'power-menu:/home/ignas/bin/rofi-power-menu --choices=shutdown/reboot/suspend'"
+
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -106,40 +110,44 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: "
-set $ws2 "2: "
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5: "
-set $ws6 "6: "
-set $ws7 "7: "
-set $ws8 "8: "
-set $ws9 "9: "
-set $ws10 "10: "
+
+# Workstyle config
+exec_always --no-startup-id workstyle &> /tmp/workstyle.log
+
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+set $ws10 10
 
 # switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -147,7 +155,6 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -189,7 +196,8 @@ bindsym $mod+r mode "resize"
 #	}
 #}
 #
-bindsym $mod+shift+x exec /home/ignas/.config/scripts/lock
+# bindsym $mod+shift+x exec /home/ignas/.config/scripts/lock
+bindsym $mod+shift+x exec betterlockscreen -l dim 
 bindsym $mod+shift+s exec ksnip -r 
 
 #polybar
@@ -212,22 +220,29 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
+# turn off screee
+# exec --no-startup-id xset s off
+# exec --no-startup-id xset -dpms
+# exec --no-startup-id xset s noblank
+
 # Touchpad controls
 bindsym XF86TouchpadToggle exec /home/snowz/scripts/toggletouchpad.sh # toggle touchpad
 
 #Open apps in diferent workspaces on startup
-for_window [class="firefox"] move to workspace $ws2
-for_window [class="Spotify"] move to workspace $ws8
-for_window [class="discord"] move to workspace $ws9
-for_window [class="Lutris"] move to workspace $ws6
-for_window [class="jetbrains-pycharm-ce"] move to workspace $ws5
+#for_window [class="firefox"] move to workspace $ws2
+#for_window [class="Spotify"] move to workspace $ws8
+#for_window [class="discord"] move to workspace $ws9
+#for_window [class="Lutris"] move to workspace $ws6
+#for_window [class="jetbrains-pycharm-ce"] move to workspace $ws5
 
-for_window [class="firefox"] workspace $ws2
-for_window [class="Spotify"] workspace $ws8
-for_window [class="discord"] workspace $ws9
-for_window [class="Lutris"] workspace $ws6
-for_window [class="jetbrains-pycharm-ce"] workspace $ws5
+#for_window [class="firefox"] workspace $ws2
+#for_window [class="Spotify"] workspace $ws8
+#for_window [class="discord"] workspace $ws9
+#for_window [class="Lutris"] workspace $ws6
+#for_window [class="jetbrains-pycharm-ce"] workspace $ws5
+# for_window [class="ksnip"] exec sleep 5 &&  killall ksnip
 #
+# ksnip
 
 #gaps
 for_window [class=".*"] border pixel 2
@@ -235,12 +250,28 @@ gaps inner 10
 gaps outer 20
 
 #tapetus
-exec_always feh --bg-scale /home/ignas/Pictures/wall_secondary.png
-#/home/ignas/Pictures/wall_secondary.png
-#/home/ignas/Pictures/tapetus.png 
+
+# sunflower
+# exec_always feh --bg-fill /home/ignas/Pictures/sloneczniki.png
+
+# japanise wall 
+# exec_always feh --bg-fill /home/ignas/Pictures/scianajaponia.jpg  
+
+# realistic
+ exec_always feh --bg-fill /home/ignas/Pictures/reealis.jpg  
+
+# bird
+# exec_always feh --bg-scale /home/ignas/Pictures/bird.png  
+
+# origin
+# exec_always feh --bg-scale /home/ignas/Pictures/wall_secondary.png  
+
+# clean water
+# exec_always feh --bg-scale /home/ignas/Pictures/gwater.png 
 
 #move workspace to diferent monitor
 bindsym $mod+x move workspace to output right
+bindsym $mod+z move workspace to output left 
 bindsym $mod+m move to output right
 
 exec_always /home/ignas/Downloads/xborder/xborders -c /home/ignas/.config/border.json
@@ -263,8 +294,17 @@ set $ibgcolor #1d2021
 set $textcolor #fbf1c7
 set $ubgcolor #cc241d
 
+# android emulator
+for_window [title="^Android Emulator.+:[0-9]+$"] floating enable
+
 #		border		background	text		indicator
 client.focused	$bgcolor	$bgcolor	$textcolor	$bgcolor
 client.unfocused $ibgcolor	$ibgcolor	$textcolor	$ibgcolor
 client.focused_inactive	$ibgcolor $ibgcolor	$textcolor	$ibgcolor
 client.urgent	$ubgcolor	$ubgcolor	$textcolor	$ubgcolor	
+
+# mouse_warping none
+focus_follows_mouse no
+
+
+# custom class for men
